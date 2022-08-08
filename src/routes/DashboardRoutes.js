@@ -1,9 +1,14 @@
 import React from 'react'
 import { Outlet, Navigate } from 'react-router-dom';
-export default function DashboardRoutes() {
+import { AdminHeader } from '../layouts'
+
+export default function DashboardRoutes({theme , toogleTheme}) {
     if (true) {
         return (
-            <Outlet />
+            <>
+                <AdminHeader theme={theme} toogleTheme = {toogleTheme} />
+                <Outlet />
+            </>
         );
     } else {
         return (

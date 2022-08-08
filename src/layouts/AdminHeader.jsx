@@ -1,10 +1,24 @@
-import React from 'react'
-
-export default function AdminHeader(props) {
+import React from "react";
+import { FaStore, FaHome } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { HeaderStyles, LogoStyle, CustomerTab } from "../styles";
+import AdminTabbar from "../components/AdminTabbar";
+import { Toogle } from "../components/ToogleTheme";
+export default function CustomerHeader({ theme , toogleTheme }) {
   return (
-    <div>
-        <h1>admin header</h1>
-        {props.children}
-    </div>
-  )
+      <HeaderStyles>
+        <LogoStyle>
+          <FaStore />
+          <h1> فروشگاه دیجیتال </h1>
+        </LogoStyle>
+        <AdminTabbar/>{/*Admin tabbar*/}
+        <CustomerTab> 
+          <Link to="/">
+            <FaHome />
+          </Link>
+          <Toogle theme={theme} toggleTheme={toogleTheme} />
+        </CustomerTab>
+      </HeaderStyles>
+  
+  );
 }

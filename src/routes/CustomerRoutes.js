@@ -1,7 +1,11 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-export default function CustomerRoutes() {
+import { CustomerHeader } from '../layouts'
+export default function CustomerRoutes({ theme, toogleTheme }) {
   return (
-    <Outlet/>
+    <>
+      <CustomerHeader theme={theme} toogleTheme={toogleTheme} />
+      <Outlet />
+    </>
   )
 }
