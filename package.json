@@ -15,7 +15,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "backend:dev": "nodemon server",
+    "backend:prod": "nodemon server",
+    "concurrently": "concurrently \"npm run start\" \"npm run backend\" "
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +37,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "axios": "^0.27.2",
+    "concurrently": "^7.3.0",
+    "json-server": "^0.17.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.19",
+    "react-icons": "^4.4.0",
+    "react-multi-date-picker": "^3.3.0",
+    "react-router-dom": "^6.3.0",
+    "styled-components": "^5.3.5",
+    "sweetalert": "^2.1.2",
+    "swiper": "^8.3.2"
   }
 }
