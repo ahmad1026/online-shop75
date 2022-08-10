@@ -45,7 +45,7 @@ export default function LoginPage() {
       try {
         const response = await Login(formValues);
         if (response.token) {
-          Navigate("/dashboard");
+          Navigate("/dashboard/products");
         }
       } catch (err) {
         console.log(err);

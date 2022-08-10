@@ -17,7 +17,7 @@ export default function CustomerHeader({ theme , toogleTheme }) {
             <FaHome />
           </Link>
           <Toogle theme={theme} toggleTheme={toogleTheme} />
-          <Link to="/dashboard">
+          <Link to="/dashboard/products">
             <h1>مدیریت </h1>
           </Link>
           <Link to="/cart">

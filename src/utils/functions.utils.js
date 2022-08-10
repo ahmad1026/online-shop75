@@ -1,6 +1,9 @@
 import { ACCESS_TOKEN , REFRESH_TOKEN , IS_LOGGED_IN } from "../configs/variables.config";
 import jwt_decode from "jwt-decode";
 import {history} from '../services/history.service'
+
+
+
 export const CheckUserExpired = () => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (!token) return;
@@ -22,4 +25,16 @@ export const useAuth = () =>
     } else {
         return false;
     }
+}
+
+
+export const timestampTodate = (timstamp)=>{
+
+    let date = new Intl.DateTimeFormat("fa-IR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).format(timstamp);
+  
+      return date;
 }
