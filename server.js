@@ -8,7 +8,7 @@ const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const jwt = require('jsonwebtoken')
 const AUTH_JWT_SECRET = 'TOP-SECRET'
-const AUTH_JWT_OPTIONS = { expiresIn: 24*60*60 }
+const AUTH_JWT_OPTIONS = { expiresIn: '5h' }
 
 // Load DB file for Authentication middleware and endpoints
 const DB = JSON.parse(fs.readFileSync(path.join(__dirname, './db.json'), 'utf-8'))
@@ -111,14 +111,21 @@ server.use((req, res, next) => {
 })
 
 // Authentication Routes
+// server.post('/auth/login' , (req , res)=>{
+//   console.log(req.body , "==========>");
+//   res.json(req.body)
+// })
+
+
 server.post([
   '/auth/login',
   '/auth/refresh-token',
   ], function (req, res, next) {
   if (req.url === '/auth/login') {
-    const { username, password } = req.body
+    const { username, password } = req.body   
+    console.log(req.body);
     req.user = (DB.users || {}).find(u => u.username == username && u.password == password)
-    if (!req.user) return res.status(400).send('No user with those credentials!')
+    if (!req.user) return res.status(400).send('نام کاربری یا رمز عبور شما اشتباه است!')
   }
   if (req.url === '/auth/refresh-token'){
     if (!req.user) return res.status(400).send('Token Required!')

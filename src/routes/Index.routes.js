@@ -33,7 +33,7 @@ export default function AppRoutes({theme,toogleTheme}) {
           <Route path='quantity' element={<QuantityProducts />} />
           <Route path='orders' element={<ManegeOrders />} />
         </Route>
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login theme={theme}/>} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

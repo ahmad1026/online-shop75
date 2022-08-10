@@ -7,7 +7,6 @@ body{
     width: 100vw;
     background-color: ${({theme}) => theme.background };
     color: ${({theme})=> theme.text};
-    transition: all 0.5s linear;
     overflow-x: hidden;
 }
 `

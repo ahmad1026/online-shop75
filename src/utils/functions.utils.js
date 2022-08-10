@@ -1,28 +1,25 @@
-import {useNavigate} from 'react-router-dom'
-import { jsonwebtoken as jwt} from 'jsonwebtoken'
-import { ACCESS_TOKEN, AUTH_JWT_SECRET ,  IS_LOGGED_IN, REFRESH_TOKEN } from "configs/variables.config";
-
-
-export const CheckUserExpired = (pageStatus)=>{
-
-
-    const Navigate =  useNavigate()
-
-    const token = localStorage.getItem(ACCESS_TOKEN)
-    if(!token) return;
-    const { exp } = jwt.vetify(token ,AUTH_JWT_SECRET);
-    
-    if(exp *1000 <Date.now()){
+import { ACCESS_TOKEN , REFRESH_TOKEN , IS_LOGGED_IN } from "../configs/variables.config";
+import jwt_decode from "jwt-decode";
+import {history} from '../services/history.service'
+export const CheckUserExpired = () => {
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    if (!token) return;
+    const { exp } = jwt_decode(token);
+    console.log(exp);
+    if (exp * 1000 < Date.now()) {
         localStorage.removeItem('userData');
         localStorage.removeItem(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN);
         localStorage.removeItem(IS_LOGGED_IN);
-        if(pageStatus != "public"){
-            Navigate('/login')
-        }
-
-        
+        history.push('/login')
     }
-
-
+}
+export const useAuth = () => 
+{
+    if(localStorage.hasOwnProperty('IS_LOGGED_IN') && localStorage.getItem('IS_LOGGED_IN') !== "false")
+    {
+        return true;
+    } else {
+        return false;
+    }
 }
