@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { OrdersPage, OrdersPageHeader, TableOrdersWrapper } from "../../styles";
 import { getOrders, getOrdersFilter } from "../../api/getOrders.api";
-import Pagination from "../../components/Pagination";
+import {Pagination} from "../../components";
 import { timestampTodate } from "../../utils/functions.utils";
 export default function ManageOrders() {
   const [orders, setOrders] = useState([]);

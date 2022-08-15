@@ -2,8 +2,8 @@ import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../../api/userLogin.api";
 import { loginValidationSchema } from "../../validations/userLogin";
+import { Column } from "../../styles/Global";
 import {
-  Column,
   LoginWrapper,
   LoginContent,
   InputButton,

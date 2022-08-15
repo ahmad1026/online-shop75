@@ -13,7 +13,7 @@ export const HeaderStyles = styled.div`
 width: 100vw;
 height: 100px;
 position: fixed;
-z-index: 1000;
+z-index: 1;
 top: 0;
 top: ${(props)=> true ? '0px' : '-100px'};
 left:0;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { getProducts } from "../../api/getProducts.api";
-import Pagination from "../../components/Pagination";
+import {Pagination} from "../../components";
 import {
   QuantityPage,
   QuantityPageHeader,

@@ -7,7 +7,7 @@ export { TabbarWrapper, Tab } from './Dashboard/AdminTabbar.styles'
 
 
 //Login styles
-export { LoginWrapper, LoginContent, Column, InputButton, InputBox } from './Login/Login.styles'
+export { LoginWrapper, LoginContent, InputButton, InputBox } from './Login/Login.styles'
 
 
 //Table
@@ -30,3 +30,7 @@ export {
     OrdersPageHeader,
     TableOrdersWrapper,
 } from './Dashboard/OrderPage.styles'
+
+
+//AddEdit product
+export {ModalWrapper , FormContent} from './Dashboard/AddEdit.styles'

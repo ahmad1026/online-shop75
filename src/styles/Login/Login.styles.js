@@ -1,15 +1,5 @@
 import styled from 'styled-components'
 
-
-
-export const Column = styled.div`
-display: flex;
-flex-direction: column;
-align-items: ${({alignItems})=> alignItems};
-justify-content: ${({justifyContent})=> justifyContent};
-gap:${({gap})=> gap} ;
-`
-
 export const LoginWrapper = styled.div`
 width: 100%;
 height: 100vh;

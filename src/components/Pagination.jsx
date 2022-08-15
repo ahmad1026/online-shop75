@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PaginationStyles, PageIndex } from "../styles";
 
-export default function Pagination({ pages, getUrl }) {
+export function Pagination({ pages, getUrl }) {
   const [Index, setIndex] = useState(1);
 
   const handlePage = (pageNumber) => {
