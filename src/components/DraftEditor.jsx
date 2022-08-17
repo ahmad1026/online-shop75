@@ -8,6 +8,11 @@ import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 
 export default class EditorConvertToHTML extends Component {
+  constructor({getDescription}) {
+    super()
+    
+    
+  }
   state = {
     editorState: EditorState.createEmpty(),
   }

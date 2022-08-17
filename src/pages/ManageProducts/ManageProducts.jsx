@@ -5,20 +5,21 @@ import {
   TableProductsWrapper,
 } from "../../styles";
 import { Link, useParams } from "react-router-dom";
-import { getProducts } from "../../api/getProducts.api";
+import { getProducts, deleteProduct } from "../../api/getProducts.api";
 import { Pagination, AddEditProduct } from "../../components";
 export default function ManageProducts() {
   const [products, setProducts] = useState([]);
   const [pageVolum, setpageVolum] = useState([]);
+  const [page , setPage] = useState(1);
   const [modal, setModal] = useState({
-    status:false,
-    EditId:''
+    status: false,
+    EditId: "",
   });
   const params = useParams();
-  console.log(params);
   useEffect(() => {
     getProducts("")
       .then((res) => {
+        // console.log(res);
         setProducts(res);
         goToPage("?_page=1&_limit=10");
       })
@@ -31,27 +32,53 @@ export default function ManageProducts() {
     getProducts(url)
       .then((res) => {
         setpageVolum(res);
+        setPage(url)
       })
       .catch((e) => {
         console.log(e);
       });
   };
-  const handleEdit = (EditId)=>{
+  const handleEdit = (EditId) => {
     setModal({
-      status:true,
-      EditId
+      status: true,
+      EditId,
     });
-
-
+  };
+  const handleDelete = (DeleteId) => {
+    deleteProduct(DeleteId)
+      .then((res) => {
+        goToPage(page)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const handleModal=(state)=>{
+    setModal({
+      status:state
+    })
+    getProducts("")
+      .then((res) => {
+        setProducts(res);
+        goToPage(`?_page=${page}&_limit=10`);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
+
 
   return (
     <>
-      {modal.status && <AddEditProduct EditId={modal.EditId} closeModal={setModal} />}
+      {modal.status && (
+        <AddEditProduct EditId={modal.EditId} closeModal={handleModal} />
+      )}
       <ProductsPage>
         <ProductsTitle>
           <h1>مدیریت کالا ها</h1>
-          <button onClick={() => setModal({status:true})}>افزودن کالا</button>
+          <button onClick={() => setModal({ status: true,EditId: "" })}>
+            افزودن کالا
+          </button>
         </ProductsTitle>
         <TableProductsWrapper>
           <table>
@@ -66,17 +93,17 @@ export default function ManageProducts() {
             </thead>
             <tbody>
               {pageVolum.map((item) => (
-                <tr>
+                <tr key={item.id}>
                   <td>
                     <Link to={`${item.id}`}>مشاهده</Link>
                   </td>
                   <td>{item.title}</td>
                   <td>{item.catName}</td>
                   <td>
-                    <button onClick={()=>handleEdit(item.id)}>ویرایش</button>
+                    <button onClick={() => handleEdit(item.id)}>ویرایش</button>
                   </td>
                   <td>
-                    <Link to={`${item.id}`}>حذف</Link>
+                    <button onClick={() => handleDelete(item.id)}>حذف</button>
                   </td>
                 </tr>
               ))}
@@ -85,7 +112,7 @@ export default function ManageProducts() {
         </TableProductsWrapper>
         <Pagination
           getUrl={goToPage}
-          pages={new Array(Math.floor(products.length / 10) + 1)}
+          pages={new Array(Math.ceil(products.length / 10))}
         />
       </ProductsPage>
     </>

@@ -17,7 +17,7 @@ export function Pagination({ pages, getUrl }) {
       <button onClick={() => handlePage(Index + 1)}>بعدی</button>
       <div>
         {[...pages].map((item, index) => (
-          <PageIndex isActive={Index === index + 1 ? true : false} onClick={() => handlePage(index + 1)}>
+          <PageIndex key={index} isActive={Index === index + 1 ? true : false} onClick={() => handlePage(index + 1)}>
             {index + 1}
           </PageIndex>
         ))}

@@ -13,3 +13,25 @@ export const getProducts = async (url)=>{
 
     }
 }
+export const deleteProduct = async (id)=>{
+
+    try{
+        const response = http.delete(GET_PRODUCTS +"/"+ id);
+         return (await response).data
+
+    }catch(e){
+        console.log(e)
+
+    }
+}
+export const editProduct = async (id, data)=>{
+
+    try{
+        const response = http.patch(GET_PRODUCTS +"/"+ id,data);
+         return (await response).data
+
+    }catch(e){
+        console.log(e)
+
+    }
+}

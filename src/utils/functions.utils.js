@@ -8,7 +8,6 @@ export const CheckUserExpired = () => {
     const token = localStorage.getItem(ACCESS_TOKEN);
     if (!token) return;
     const { exp } = jwt_decode(token);
-    console.log(exp);
     if (exp * 1000 < Date.now()) {
         localStorage.removeItem('userData');
         localStorage.removeItem(ACCESS_TOKEN);

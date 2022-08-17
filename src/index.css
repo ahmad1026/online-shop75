@@ -58,4 +58,13 @@ table {
 border-collapse: collapse;
 border-spacing: 0;
 }
+button{
+  font-family: "Omid";
+}
+input{
+  font-family: "Omid";
+}
+select{
+  font-family: "Omid";
+}
 
