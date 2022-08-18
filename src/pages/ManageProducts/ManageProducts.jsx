@@ -95,7 +95,7 @@ export default function ManageProducts() {
               {pageVolum.map((item) => (
                 <tr key={item.id}>
                   <td>
-                    <Link to={`${item.id}`}>مشاهده</Link>
+                    <button>مشاهده</button>
                   </td>
                   <td>{item.title}</td>
                   <td>{item.catName}</td>

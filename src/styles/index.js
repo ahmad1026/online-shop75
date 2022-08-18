@@ -21,7 +21,7 @@ export { PaginationStyles, PageIndex } from './Dashboard/Pagination.styles'
 export { ProductsPage, ProductsTitle, TableProductsWrapper } from './Dashboard/Products.styles'
 
 // Quantitiy products
-export { QuantityPage, QuantityPageHeader, TableQuantityWrapper } from './Dashboard/QuantityPage.styles'
+export { QuantityPage, QuantityPageHeader, TableQuantityWrapper ,SaveButton } from './Dashboard/QuantityPage.styles'
 
 //Oreders manage
 

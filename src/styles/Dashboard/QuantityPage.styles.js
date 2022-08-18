@@ -25,12 +25,15 @@ margin-bottom: 40px;
 font-family: "Omid";
 button{
     padding: 8px 16px;
-    background-color: lightgreen;
     border: none;
     outline: none;
     border-radius: 8px;
     font-family: "Omid";
 }
+
+`
+export const SaveButton = styled.button`
+background-color: ${({status})=>status ? "lightgreen" : "gray"};
 
 `
 

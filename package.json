@@ -25,7 +25,7 @@
     "backend": "node server",
     "backend:dev": "nodemon server",
     "backend:prod": "nodemon server",
-    "startt": "concurrently \"npm run start\" \"npm run backend\" "
+    "dev": "concurrently \"npm run start\" \"npm run backend\" "
   },
   "eslintConfig": {
     "extends": [
