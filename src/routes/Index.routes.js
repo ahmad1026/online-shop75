@@ -21,7 +21,7 @@ export default function AppRoutes({theme,toogleTheme}) {
       <Routes>
         <Route path='/' element={<CustomerRoutes theme={theme} toogleTheme={toogleTheme} />}>
           <Route path='/' element={<Home/>}/>
-          <Route path='products/:category' element={<Products />} />
+          <Route path='products/:category/:categoryId' element={<Products />} />
           <Route path='product/:productId' element={<Product />} />
           <Route path='cart' element={<Cart />} />
           <Route path='cart/checkout' element={<CheckOut />} />

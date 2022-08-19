@@ -80,6 +80,7 @@ export function AddEditProduct({ closeModal, EditId }) {
             form.images = [];
           }
           form.catName = e.target.category.value.split("/")[1];
+          form.catId = e.target.category.value.split("/")[0];
           console.log(form);
           addProduct(form)
             .then((res) => {
@@ -101,6 +102,7 @@ export function AddEditProduct({ closeModal, EditId }) {
             form.images = [...product.images];
           }
           form.catName = e.target.category.value.split("/")[1];
+          form.catId = e.target.category.value.split("/")[0];
           // console.log(form);
           editProduct(product.id, form)
             .then((res) => {
