@@ -9,7 +9,7 @@ export default function CustomerHeader({ theme , toogleTheme }) {
       <HeaderStyles>
         <LogoStyle>
           <FaStore />
-          <h1> فروشگاه دیجیتال </h1>
+          <h3> فروشگاه دیجیتال </h3>
         </LogoStyle>
         <SearchBox color="red" />
         <CustomerTab>
@@ -18,7 +18,7 @@ export default function CustomerHeader({ theme , toogleTheme }) {
           </Link>
           <Toogle theme={theme} toggleTheme={toogleTheme} />
           <Link to="/dashboard/products">
-            <h1>مدیریت </h1>
+            <h3>مدیریت </h3>
           </Link>
           <Link to="/cart">
             <FaShoppingCart />

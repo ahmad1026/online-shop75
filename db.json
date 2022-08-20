@@ -5,36 +5,7 @@
       "password": "123"
     }
   ],
-  "products": [
-    {
-      "images": [
-        "c5a4a6d423164b00808ce986ff00a8a0"
-      ],
-      "title": "روغن 900 گرمی",
-      "category": "2/محصولات غذایی",
-      "count": "25",
-      "price": "500000",
-      "catName": "محصولات غذایی",
-      "catId": "2",
-      "discription": "<p>روغن مایع زیبا و دوست داشتنی</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><figure class=\"table\"><table><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>assd</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td rowspan=\"2\"><h2>sdsd</h2></td><td>&nbsp;</td><td>sdsd</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></figure>",
-      "createdAt": 1660994067185,
-      "id": 1
-    },
-    {
-      "images": [
-        "97cd7f43bd0a58ff8e4d5e04f7ccca85"
-      ],
-      "title": "ماکارونی",
-      "category": "2/محصولات غذایی",
-      "count": "52",
-      "price": "2000",
-      "catName": "محصولات غذایی",
-      "catId": "2",
-      "discription": "<h2>ماکارونی تازه&nbsp;</h2><ul><li>مانا</li><li>زر</li><li>سیما</li></ul>",
-      "createdAt": 1661003888900,
-      "id": 2
-    }
-  ],
+  "products": [],
   "categores": [
     {
       "id": 1,
