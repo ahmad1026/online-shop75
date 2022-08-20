@@ -6,6 +6,7 @@ import {
   ProductDetilse,
   AddtoCart,
 } from "../../styles";
+import parse from 'html-react-parser';
 import { useEffect , useState } from "react";
 import { getProducts } from "../../api/getProducts.api";
 import { useParams } from "react-router-dom";
@@ -17,14 +18,12 @@ export default function Product() {
   useEffect(()=>{
     getProducts(`/${productId}`)
     .then(res=>{
-      console.log(res);
       setProduct(res);
-
     }).catch(e=>{
       console.log(e);
     })
 
-  },[])
+  },[productId])
 
 
   return (
@@ -47,14 +46,9 @@ export default function Product() {
           </div>
         </ProductDetilse>
       </ProductInfo>
-      <p>
-        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-        از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-        سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
-        متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
-        درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با
-        نرم افزارها شناخت بیشتری
-      </p>
+      <div>
+         { product.discription ? parse(String(product.discription)) : null}
+      </div>
     </ProductWrapper>
   );
 }

@@ -1,36 +1,33 @@
-import React, { Component } from "react";
-import { EditorState, convertToRaw } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+import React, { useState } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import styled from 'styled-components';
+import { useEffect } from 'react';
 
-import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-export default class EditorConvertToHTML extends Component {
-  state = {
-    editorState: EditorState.createEmpty(),
-  };
 
-  onEditorStateChange = (editorState) => {
-    this.setState({
-      editorState,
-    });
-  };
-  // blocks = convertToRaw(this.state.editorState.getCurrentContent()).blocks;
-  // value = this.blocks
-  //   .map((block) => (!block.text.trim() && "\n") || block.text)
-  //   .join("\n");
+const TextEditor = styled.div`
+height: 300px;
+overflow-y: scroll;
+`
 
-  render() {
-    const { editorState } = this.state.editorState;
-    return (
-      <div>
-        <Editor
-          placeholder="متن خود را وارد کنید"
-          editorState={editorState}
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
-          onEditorStateChange={this.onEditorStateChange}
-        />
-      </div>
-    );
+
+export default function CKeditor({editContext , getDescription}) {
+
+  const [addData , setValue] =useState("");
+  useEffect(()=>{
+    setValue(editContext)
+  },[editContext])
+
+  const handleChange = (e , editor)=>{
+
+    const data = editor.getData();
+    setValue(data);
+    getDescription(data)
   }
+  return (
+    <TextEditor>
+      <CKEditor editor={ClassicEditor} data={addData} onChange={handleChange} />
+    </TextEditor>
+  )
 }

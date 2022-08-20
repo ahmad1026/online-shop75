@@ -7,17 +7,19 @@ import EditorConvertToHTML from "../DraftEditor";
 import { getCategores } from "../../api/getCategores.api";
 import { uploadImage } from "../../api/uploadImage";
 import { addProduct } from "../../api/addProduct";
+import parse from 'html-react-parser'
 export function AddEditProduct({ closeModal, EditId }) {
   const [product, setProduct] = useState({});
   const [categores, setCategores] = useState([]);
+  const [description , setDescription] = useState("");
 
   // console.log(EditId);
 
   useEffect(() => {
     getProducts(`/${EditId}`)
       .then((res) => {
-        // console.log(res);
-        setProduct(res);
+        setProduct(res)
+        getDescription(res.discription)
       })
       .catch((e) => {
         console.log(e);
@@ -46,7 +48,7 @@ export function AddEditProduct({ closeModal, EditId }) {
           catId: e.target.value.split("/")[0],
           catName: e.target.value.split("/")[1],
         });
-        console.log(product);
+        // console.log(product);
         break;
       case "count":
         setProduct({
@@ -81,10 +83,11 @@ export function AddEditProduct({ closeModal, EditId }) {
           }
           form.catName = e.target.category.value.split("/")[1];
           form.catId = e.target.category.value.split("/")[0];
-          console.log(form);
+          form.discription = description;
+          // console.log(form);
           addProduct(form)
             .then((res) => {
-              console.log(res);
+              // console.log(res);
             })
             .catch((err) => {
               console.log(err);
@@ -103,6 +106,7 @@ export function AddEditProduct({ closeModal, EditId }) {
           }
           form.catName = e.target.category.value.split("/")[1];
           form.catId = e.target.category.value.split("/")[0];
+          form.discription = description;
           // console.log(form);
           editProduct(product.id, form)
             .then((res) => {
@@ -119,8 +123,10 @@ export function AddEditProduct({ closeModal, EditId }) {
     closeModal(false);
   };
 
-  const getDescription = (text) => {};
-
+  const getDescription = (text) => {
+    setDescription(text)
+  };
+  
   return (
     <ModalWrapper>
       <form action="" onSubmit={handleSubmit}>
@@ -159,7 +165,6 @@ export function AddEditProduct({ closeModal, EditId }) {
                   value={product.count}
                   placeholder="تعداد"
                 />
-
                 <input
                   onChange={handleChange}
                   name="price"
@@ -169,7 +174,7 @@ export function AddEditProduct({ closeModal, EditId }) {
                 />
               </Row>
               <label htmlFor="description">توضیحات</label>
-              <EditorConvertToHTML getDescription={getDescription} />
+              <EditorConvertToHTML editContext={description ? description : "" } getDescription={getDescription} />
               <button type="submit">ذخیره</button>
             </Column>
           </Column>
