@@ -8,7 +8,6 @@ export async function Login(data){
     try{
         const response = await http.post(LOGIN_URL ,data)
         localStorage.setItem(ACCESS_TOKEN, response.data.token);
-        localStorage.setItem(REFRESH_TOKEN, response.data.token);
         localStorage.setItem(IS_LOGGED_IN, true.toString());
 
         const realData = jwt_decode(response.data.token);

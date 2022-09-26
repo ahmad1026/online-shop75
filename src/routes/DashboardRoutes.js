@@ -7,8 +7,6 @@ export default function DashboardRoutes({ theme, toogleTheme }) {
     useEffect(() => {
         CheckUserExpired()
     },[location])
-
-
     return (useAuth() ? (
         <>
             <AdminHeader theme={theme} toogleTheme={toogleTheme} />

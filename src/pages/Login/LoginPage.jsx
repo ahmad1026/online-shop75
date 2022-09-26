@@ -1,4 +1,5 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Login } from "../../api/userLogin.api";
 import { loginValidationSchema } from "../../validations/userLogin";
@@ -9,7 +10,17 @@ import {
   InputButton,
   InputBox,
 } from "../../styles";
+import { loginUser } from "../../features/auth/authSlice";
+import { useEffect } from "react";
 export default function LoginPage() {
+    const auth = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        if (auth.token) {
+            Navigate("/dashboard/products");
+          }
+    })
+  //   console.log(auth);
   const [userName, setuserName] = useState("");
   const [password, setPassword] = useState("");
   const [userNameErrorMsg, setUserNameErrorMsg] = useState(null);
@@ -43,16 +54,15 @@ export default function LoginPage() {
 
     if (validateData !== false) {
       try {
-        const response = await Login(formValues);
-        if (response.token) {
-          Navigate("/dashboard/products");
-        }
+        dispatch(loginUser(formValues));
+        // const response = await Login(formValues);
+        // if (response.token) {
+        //   Navigate("/dashboard/products");
+        // }
       } catch (err) {
         console.log(err);
-        setUserNameErrorMsg(err.response.data)
-        setPAsswordErrorMsg(err.response.data)
-        
-
+        setUserNameErrorMsg(err.response.data);
+        setPAsswordErrorMsg(err.response.data);
       }
     }
   };
@@ -85,7 +95,9 @@ export default function LoginPage() {
               />
               <span>{passwordErrorMsg}</span>
             </Column>
-            <InputButton>ورود</InputButton>
+            <InputButton>
+              {auth.loginStatus === "pending" ? "loading" : "ورود"}
+            </InputButton>
           </Column>
         </form>
       </LoginContent>

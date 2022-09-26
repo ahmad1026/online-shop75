@@ -9,7 +9,7 @@ export default function CustomerHeader({ theme , toogleTheme }) {
       <HeaderStyles>
         <LogoStyle>
           <FaStore />
-          <h1> فروشگاه دیجیتال </h1>
+          <h5> فروشگاه دیجیتال </h5>
         </LogoStyle>
         <AdminTabbar/>{/*Admin tabbar*/}
         <CustomerTab> 
