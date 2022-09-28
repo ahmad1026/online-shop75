@@ -6,8 +6,7 @@ import { Row, Column } from "../../styles/Global";
 import EditorConvertToHTML from "../DraftEditor";
 import { getCategores } from "../../api/getCategores.api";
 import { uploadImage } from "../../api/uploadImage";
-import { addProduct } from "../../api/addProduct";
-import parse from 'html-react-parser'
+import { addProductApi } from "../../api/addProduct";
 export function AddEditProduct({ closeModal, EditId }) {
   const [product, setProduct] = useState({});
   const [categores, setCategores] = useState([]);
@@ -73,53 +72,63 @@ export function AddEditProduct({ closeModal, EditId }) {
     const formData = new FormData(e.target);
     form = Object.fromEntries(formData);
     imageProduct.append("image", e.target.images.files[0]);
-    if (EditId === "") {
-      uploadImage(imageProduct)
-        .then((res) => {
-          if (!!res.filename) {
-            form.images = [res.filename];
-          } else {
-            form.images = [];
-          }
-          form.catName = e.target.category.value.split("/")[1];
-          form.catId = e.target.category.value.split("/")[0];
-          form.discription = description;
-          // console.log(form);
-          addProduct(form)
-            .then((res) => {
-              // console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      uploadImage(imageProduct)
-        .then((res) => {
-          if (!!res.filename) {
-            form.images = [...product.images, res.filename];
-          } else {
-            form.images = [...product.images];
-          }
-          form.catName = e.target.category.value.split("/")[1];
-          form.catId = e.target.category.value.split("/")[0];
-          form.discription = description;
-          // console.log(form);
-          editProduct(product.id, form)
-            .then((res) => {
-              // console.log(res);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
+    form.discription = description;
+    form = {...form , price:Number(form.price),count:Number(form.count)}
+    console.log(form);
+
+
+    // const validateData = await addProductVAlidationSchema
+    // .validate(form)
+    // .catch((err)=>{
+    //     err.message.type === 'title'
+    // })
+    // if (EditId === "") {
+    //   uploadImage(imageProduct)
+    //     .then((res) => {
+    //       if (!!res.filename) {
+    //         form.images = [res.filename];
+    //       } else {
+    //         form.images = [];
+    //       }
+    //       form.catName = e.target.category.value.split("/")[1];
+    //       form.catId = e.target.category.value.split("/")[0];
+    //       form.discription = description;
+    //       // console.log(form);
+    //       addProductApi(form)
+    //         .then((res) => {
+    //           // console.log(res);
+    //         })
+    //         .catch((err) => {
+    //           console.log(err);
+    //         });
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // } else {
+    //   uploadImage(imageProduct)
+    //     .then((res) => {
+    //       if (!!res.filename) {
+    //         form.images = [...product.images, res.filename];
+    //       } else {
+    //         form.images = [...product.images];
+    //       }
+    //       form.catName = e.target.category.value.split("/")[1];
+    //       form.catId = e.target.category.value.split("/")[0];
+    //       form.discription = description;
+    //       // console.log(form);
+    //       editProduct(product.id, form)
+    //         .then((res) => {
+    //           // console.log(res);
+    //         })
+    //         .catch((err) => {
+    //           console.log(err);
+    //         });
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // }
     closeModal(false);
   };
 

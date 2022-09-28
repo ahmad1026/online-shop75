@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Login } from "../../api/userLogin.api";
-import { loginValidationSchema } from "../../validations/userLogin";
+import { loginValidation } from "../../validations/userLoginValidations";
 import { Column } from "../../styles/Global";
 import {
   LoginWrapper,
@@ -10,63 +9,42 @@ import {
   InputButton,
   InputBox,
 } from "../../styles";
-import { loginUser } from "../../features/auth/authSlice";
+import { handleLoginErrors, loginUser } from "../../features/auth/authSlice";
 import { useEffect } from "react";
 export default function LoginPage() {
-    const auth = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-    useEffect(()=>{
-        if (auth.token) {
-            Navigate("/dashboard/products");
-          }
-    })
-  //   console.log(auth);
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [userName, setuserName] = useState("");
   const [password, setPassword] = useState("");
-  const [userNameErrorMsg, setUserNameErrorMsg] = useState(null);
-  const [passwordErrorMsg, setPAsswordErrorMsg] = useState(null);
+  const [errorsMsg, setErrorsMsg] = useState({});
   const Navigate = useNavigate();
+  useEffect(() => {
+    if (auth.token) {
+      Navigate("/dashboard/products");
+    }
+  });
   const handleUsername = (e) => {
     setuserName(e.target.value);
-    setUserNameErrorMsg(null);
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    setPAsswordErrorMsg(null);
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e) => {
+    let action = {};
     e.preventDefault();
     let formValues = {};
     const formData = new FormData(e.target);
     formValues = Object.fromEntries(formData);
-
-    const validateData = await loginValidationSchema
-      .validate(formValues)
-      .catch((err) => {
-        err.message.type === "username"
-          ? setUserNameErrorMsg(err.message.message)
-          : setUserNameErrorMsg(null);
-        err.message.type === "password"
-          ? setPAsswordErrorMsg(err.message.message)
-          : setPAsswordErrorMsg(null);
-        return false;
-      });
-
-    if (validateData !== false) {
-      try {
-        dispatch(loginUser(formValues));
-        // const response = await Login(formValues);
-        // if (response.token) {
-        //   Navigate("/dashboard/products");
-        // }
-      } catch (err) {
-        console.log(err);
-        setUserNameErrorMsg(err.response.data);
-        setPAsswordErrorMsg(err.response.data);
-      }
+    const { formValid, errors } = loginValidation(formValues);
+    if (!formValid) {
+        action = dispatch(handleLoginErrors(errors));
+        setErrorsMsg({ ...action.payload });
+    } else {
+        action = dispatch(handleLoginErrors({}));
+        setErrorsMsg({ ...action.payload });
+        dispatch(loginUser(formValues))
     }
   };
-
   return (
     <LoginWrapper>
       <LoginContent>
@@ -82,7 +60,7 @@ export default function LoginPage() {
                 value={userName}
                 type="text"
               />
-              <span>{userNameErrorMsg}</span>
+              <span>{errorsMsg.username ? errorsMsg.username : ""}</span>
             </Column>
             <Column>
               <label htmlFor="password">رمز عبور</label>
@@ -93,11 +71,12 @@ export default function LoginPage() {
                 value={password}
                 type="password"
               />
-              <span>{passwordErrorMsg}</span>
+              <span>{errorsMsg.password ? errorsMsg.password : ""}</span>
             </Column>
             <InputButton>
               {auth.loginStatus === "pending" ? "loading" : "ورود"}
             </InputButton>
+            <span>{auth.loginError ? auth.loginError : ''}</span>
           </Column>
         </form>
       </LoginContent>

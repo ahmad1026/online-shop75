@@ -1,7 +1,7 @@
 import http from '../services/http.service'
 import { GET_PRODUCTS } from '../configs/urls.config'
 
-export const addProduct = async (form)=>{
+export const addProductApi = async (form)=>{
 
     try{
         const response = http.post(GET_PRODUCTS , form);
