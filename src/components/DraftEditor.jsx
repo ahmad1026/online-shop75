@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 
 const TextEditor = styled.div`
-height: 300px;
+height: 200px;
 overflow-y: scroll;
 `
 

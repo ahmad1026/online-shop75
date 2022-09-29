@@ -24,6 +24,23 @@ export const deleteProduct = async (id)=>{
 
     }
 }
+
+
+export const getProduct = async(id)=>{
+
+
+    try{
+        const response = http.get(GET_PRODUCTS +"/"+ id)
+
+        return (await response).data
+
+    }catch(e){
+        console.log(e);
+    }
+}
+
+
+
 export const editProduct = async (id, data)=>{
 
     try{
