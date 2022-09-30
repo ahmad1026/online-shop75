@@ -5,6 +5,7 @@ import {
   getCategories,
   handleProductErrors,
   handleProductModal,
+  saveProductApi,
 } from "../../features/products/productSlice";
 import { ModalWrapper, FormContent } from "../../styles";
 import { getProducts, editProduct } from "../../api/getProducts.api";
@@ -18,14 +19,14 @@ export function AddEditProduct() {
   const productStates = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const [product, setProduct] = useState({});
-  const [description, setDescription] = useState("");
+  const [discription, setDiscription] = useState("");
 
   useEffect(() => {
     dispatch(getCategories());
-    if(productStates.editeStatus){
-        setProduct(productStates.product)
+    if (productStates.editeStatus) {
+      setProduct(productStates.product);
+      setDiscription(productStates.product.discription)
     }
-
   }, []);
 
   //   useEffect(() => {
@@ -61,6 +62,12 @@ export function AddEditProduct() {
           count: e.target.value,
         });
         break;
+      case "category":
+        setProduct({
+          ...product,
+          category: e.target.value,
+        });
+        break;
       case "price":
         setProduct({
           ...product,
@@ -70,6 +77,7 @@ export function AddEditProduct() {
       default:
         break;
     }
+    console.log(product);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +86,7 @@ export function AddEditProduct() {
     const formData = new FormData(e.target);
     form = Object.fromEntries(formData);
     imageProduct.append("image", e.target.images.files[0]);
-    form.discription = description;
+    form.discription = discription;
     const { formValid, errors } = await productValidation(form);
     if (!formValid) {
       dispatch(handleProductErrors(errors));
@@ -91,8 +99,11 @@ export function AddEditProduct() {
           } else {
             form.images = [];
           }
-          form.discription = description;
-          dispatch(addProduct(form));
+          if (productStates.editeStatus) {
+            dispatch(saveProductApi({...product,discription}));
+          } else {
+            dispatch(addProduct({...form , discription}));
+          }
           dispatch(handleProductErrors(null));
         })
         .catch((e) => {
@@ -101,8 +112,7 @@ export function AddEditProduct() {
     }
   };
   const getDescription = (text) => {
-    console.log(text);
-    setDescription(text);
+    setDiscription(text);
   };
 
   return (
@@ -185,7 +195,7 @@ export function AddEditProduct() {
               </Row>
               <label htmlFor="description">توضیحات</label>
               <EditorConvertToHTML
-                editContext={description ? description : ""}
+                editContext={discription ? discription : ""}
                 getDescription={getDescription}
               />
               <button type="submit">

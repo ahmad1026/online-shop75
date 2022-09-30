@@ -45,6 +45,8 @@ export const editProduct = async (id, data)=>{
 
     try{
         const response = http.patch(GET_PRODUCTS +"/"+ id,data);
+
+        // console.log(await response);
          return (await response).data
 
     }catch(e){

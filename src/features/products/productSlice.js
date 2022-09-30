@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addProductApi } from "../../api/addProduct";
 import { getCategores } from "../../api/getCategores.api";
-import {getProduct} from '../../api/getProducts.api'
+import {getProduct,editProduct} from '../../api/getProducts.api'
+
+
 
 
 export const addProduct = createAsyncThunk('products/addProduct', async (newProduct) => {
@@ -27,12 +29,13 @@ export const editProductApi = createAsyncThunk('products/getProduct' , async(pro
     return product
 })
 
-// export const editProductApi = createAsyncThunk('products/editProducts' , async(productId , newForm)=>{
+export const saveProductApi = createAsyncThunk('products/saveProductApi' , async(newProduct)=>{
 
-//     const product = await editProduct(productId , newForm )
+    // console.log(newProduct );
+    const product = await editProduct(newProduct.id , newProduct)
 
-//     return product
-// } )
+    return product
+} )
 
 const initialState = {
     editeStatus: false,
@@ -76,6 +79,11 @@ const productSlice = createSlice({
             state.editeStatus = true
             state.product = action.payload
             state.modalStatus = true
+        },
+        [saveProductApi.fulfilled]:(state  ,action)=>{
+            state.modalStatus = false
+            state.product = null
+            state.editeStatus = false
         }
 
     }
