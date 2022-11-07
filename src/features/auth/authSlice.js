@@ -29,7 +29,6 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         handleLoginErrors: ((state, action ) => {
-            // console.log(action.payload);
             state.errors = action.payload
            
         })

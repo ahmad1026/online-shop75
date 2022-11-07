@@ -1,13 +1,13 @@
 import http from "../services/http.service";
 import { GET_CATEGORES } from '../configs/urls.config'
 
-export const getCategores = async ()=>{
+export const getCategores = async () => {
 
-    try{
+    try {
         const response = http.get(GET_CATEGORES);
-         return (await response).data
+        return (await response).data
 
-    }catch(e){
+    } catch (e) {
         console.log(e)
 
     }
